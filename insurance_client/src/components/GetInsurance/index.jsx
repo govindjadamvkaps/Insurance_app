@@ -27,30 +27,70 @@ const GetInsurance = () => {
             setPrice(data?.price)
            }
   return (
-    <div>
-      <h1>{insurance?.insurance?.firstName} Your Vehicles Insurance</h1>
-      <table class="table-auto">
-  <thead>
-    <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Edit</th>
-      <th>Submit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>{insurance?.insurance?.firstName}</td>
-      <td>{insurance?.insurance?.lastName}</td>
-      <td><button onClick={edit}>Edit</button></td>
-      {
-        price ? price :  <td><button onClick={handleSubmit}>Submit</button></td>
-      }
+//     <div>
+//       <h1>{insurance?.insurance?.firstName} Your Vehicles Insurance</h1>
+//       <table class="table-auto">
+//   <thead>
+//     <tr>
+//       <th>First Name</th>
+//       <th>Last Name</th>
+//       <th>Edit</th>
+//       <th>Submit</th>
+//     </tr>
+//   </thead>
+//   <tbody>
+//     <tr>
+//       <td>{insurance?.insurance?.firstName}</td>
+//       <td>{insurance?.insurance?.lastName}</td>
+//       <td><button onClick={edit}>Edit</button></td>
+//       {
+//         price ? price :  <td><button onClick={handleSubmit}>Submit</button></td>
+//       }
      
-    </tr>
-  </tbody>
-</table>
-    </div>
+//     </tr>
+//   </tbody>
+// </table>
+//     </div>
+
+
+<div className="relative overflow-x-auto container mx-auto">
+<h1> Hii {insurance?.insurance?.firstName}</h1>
+  <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-5">
+    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th scope="col" className="px-6 py-3">
+        First Name
+        </th>
+        <th scope="col" className="px-6 py-3">
+        Last Name
+        </th>
+        <th scope="col" className="px-6 py-3">
+        Edit
+        </th>
+        <th scope="col" className="px-6 py-3">
+        Submit
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+        <th
+          scope="row"
+          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+        >
+          {insurance?.insurance?.firstName}
+        </th>
+        <td className="px-6 py-4">{insurance?.insurance?.lastName}</td>
+        <td className="px-6 py-4"><button onClick={edit}>Edit</button></td>
+        <td className="px-6 py-4">{
+        price ?`$ ${price} `:  <td><button onClick={handleSubmit}>Submit</button></td>
+      }</td>
+      </tr>
+     
+    </tbody>
+  </table>
+</div>
+
   )
 }
 
