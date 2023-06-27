@@ -1,67 +1,100 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import formSchema from '../Validation'
 import axios from "axios";
 import moment from "moment";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-const Home = () => {
-  const navigate = useNavigate()
-  const {
-    register,
-    reset,
-    formState: { errors },
-    handleSubmit,
-  } = useForm({
-    resolver:yupResolver(formSchema)
-  });
-console.log("env",process.env.REACT_APP_BASE_URL)
-  const postData = async(data) => {
-    const {firstName, lastName, dateOfBirth, street,city, state ,zipCode,vin ,year ,makeModel,vin2, year2,makeModel2, vin3,year3, makeModel3} = data
+const Update = () => {
+    const {
+        register,
+        reset,
+        formState: { errors },
+        handleSubmit,
+        setValue
+      } = useForm({
+        resolver:yupResolver(formSchema)
+      });
+    const {id} = useParams()
+    // console.log("id",id)
+    const [insurance,setInsurance]=useState({})
+    const [dob,setDob]=useState()
+    const [vehicles,setVehicles] = useState([])
+    const navigate = useNavigate()
+      const getInsurance = async() =>{
+        
+     const {data} = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/insurance/resume-insurance/${id}`)
+     console.log("data",data)
+     setInsurance(data)
+     setDob(moment(data?.insurance?.dateOfBirth).format('L') )
+     setVehicles(data?.insurance?.vehicles)
+     setValue('firstName',data?.insurance?.firstName)
+     setValue('lastName',data?.insurance?.firstName)
+     setValue('dateOfBirth',data?.insurance?.firstName)
+     setValue('city',data?.insurance?.address?.city)
+     setValue('state',data?.insurance?.address?.state)
+     setValue('street',data?.insurance?.address?.street)
+     setValue("zipCode",data?.insurance?.address?.zipCode)
+    setValue("vin",data?.insurance?.vehicles[0]?.vin)
+    setValue("year",data?.insurance?.vehicles[0]?.year)
+    setValue("makeModel",data?.insurance?.vehicles[0]?.makeModel)
+    setValue("vin2",data?.insurance?.vehicles[1]?.vin)
+    setValue("year2",data?.insurance?.vehicles[1]?.year)
+    setValue("makeModel2",data?.insurance?.vehicles[1]?.makeModel)
+    setValue("vin3",data?.insurance?.vehicles[2]?.vin)
+    setValue("year3",data?.insurance?.vehicles[2]?.year)
+    setValue("makeModel3",data?.insurance?.vehicles[2]?.makeModel)
 
+      }
+      // console.log("v",vehicles)
+      // console.log("dob",dob)
+      
+      useEffect(()=>{
+       getInsurance()
+      },[])
+      
+      const postData = async(data) => {
+        const {firstName, lastName, dateOfBirth, street,city, state ,zipCode,vin ,year ,makeModel,vin2, year2,makeModel2, vin3,year3, makeModel3} = data
     
-    const address = {
-      street: street,
-      city: city,
-      state: state,
-      zipCode: zipCode,
-    };
-
-    const vehicles = [] 
-
-    if(vin && year && makeModel){
-      vehicles.push({vin:vin, year:year, makeModel:makeModel})
-    }
-
-    if(vin2 && year2 && makeModel2){
-      vehicles.push({vin:vin2, year:year2, makeModel:makeModel2})
-    }
+        
+        const address = {
+          street: street,
+          city: city,
+          state: state,
+          zipCode: zipCode,
+        };
     
-    if(vin3 && year3 && makeModel3){
-      vehicles.push({vin:vin3, year:year3, makeModel:makeModel3})
-    }
-
-    let dob = moment(dateOfBirth).format('L');
+        const vehicles = [] 
     
-    const formData = {firstName, lastName,dateOfBirth:dob, address:address, vehicles:vehicles}
-console.log(formData)
-
-const res = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/insurance/create-insurance`,formData)
-console.log("res",res)
-// localStorage.setItem("url",res?.data?.insurance?._id)
-navigate(`${res?.data?.resume}`)
-  reset()
-
-
-  };
-
-  
-
+        if(vin && year && makeModel){
+          vehicles.push({vin:vin, year:year, makeModel:makeModel})
+        }
+    
+        if(vin2 && year2 && makeModel2){
+          vehicles.push({vin:vin2, year:year2, makeModel:makeModel2})
+        }
+        
+        if(vin3 && year3 && makeModel3){
+          vehicles.push({vin:vin3, year:year3, makeModel:makeModel3})
+        }
+    
+        let dob = moment(dateOfBirth).format('L');
+        
+        const formData = {firstName, lastName,dateOfBirth:dob, address:address, vehicles:vehicles}
+    console.log(formData)
+    
+    const res = await axios.put(`${process.env.REACT_APP_BASE_URL}/api/insurance/update-insurance/${id}`,formData)
+    console.log("res",res)
+    navigate(`/resume-insurance/${id}`)
+      
+    
+      };
   return (
-    <>
-      <div className="container mx-auto mt-5">
+
+  <>
+     <div className="container mx-auto mt-5">
         <div
           className="flex p-4 mb-4 text-lg text-green-800 border border-green-300 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400 dark:border-green-800"
           role="alert"
@@ -84,6 +117,7 @@ navigate(`${res?.data?.resume}`)
                 <input
                   type="text"
                   id="firstName"
+                  // defaultValue={insurance?.insurance?.firstName}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="John"
                   {...register("firstName", { required: true })}
@@ -343,8 +377,8 @@ navigate(`${res?.data?.resume}`)
           </form>
         </div>
       </div>
-    </>
-  );
-};
+  </>
+  )
+}
 
-export default Home;
+export default Update
