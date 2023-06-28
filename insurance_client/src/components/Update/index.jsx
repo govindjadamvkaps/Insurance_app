@@ -31,8 +31,8 @@ const Update = () => {
      setDob(moment(data?.insurance?.dateOfBirth).format('L') )
      setVehicles(data?.insurance?.vehicles)
      setValue('firstName',data?.insurance?.firstName)
-     setValue('lastName',data?.insurance?.firstName)
-     setValue('dateOfBirth',data?.insurance?.firstName)
+     setValue('lastName',data?.insurance?.lastName)
+     setValue('dateOfBirth',data?.insurance?.dateOfBirth)
      setValue('city',data?.insurance?.address?.city)
      setValue('state',data?.insurance?.address?.state)
      setValue('street',data?.insurance?.address?.street)
@@ -100,7 +100,7 @@ const Update = () => {
           role="alert"
         >
           <div>
-            <span className="font-medium">Insurence !</span>
+            <span className="font-medium">Insurance !</span>
           </div>
         </div>
 
