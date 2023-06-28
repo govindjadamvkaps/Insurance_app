@@ -30,6 +30,7 @@ const Update = () => {
      setInsurance(data)
      setDob(moment(data?.insurance?.dateOfBirth).format('L') )
      setVehicles(data?.insurance?.vehicles)
+     
      setValue('firstName',data?.insurance?.firstName)
      setValue('lastName',data?.insurance?.lastName)
      setValue('dateOfBirth',data?.insurance?.dateOfBirth)
@@ -100,7 +101,7 @@ const Update = () => {
           role="alert"
         >
           <div>
-            <span className="font-medium">Insurance !</span>
+            <span className="font-medium">Edit Insurance !</span>
           </div>
         </div>
 

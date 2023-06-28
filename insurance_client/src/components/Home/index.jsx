@@ -67,7 +67,7 @@ navigate(`${res?.data?.resume}`)
           role="alert"
         >
           <div>
-            <span className="font-medium">Insurence !</span>
+            <span className="font-medium">Insurance !</span>
           </div>
         </div>
 
