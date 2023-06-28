@@ -85,7 +85,7 @@ navigate(`${res?.data?.resume}`)
                   type="text"
                   id="firstName"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="John"
+                  placeholder="Enter First Name"
                   {...register("firstName", { required: true })}
                 />
                 {errors.firstName && <p style={{color:"red"}}>{errors.firstName.message}</p>}
@@ -101,7 +101,7 @@ navigate(`${res?.data?.resume}`)
                   type="text"
                   id="lastName"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="Doe"
+                  placeholder="Enter last Name"
                   {...register("lastName", { required: true })}
                 />
                 {errors.lastName && <p style={{color:"red"}}>{errors.lastName.message}</p>}
@@ -149,7 +149,7 @@ navigate(`${res?.data?.resume}`)
                   type="text"
                   id="city"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="flowbite.com"
+                  placeholder=""
                   {...register("city", { required: true })}
                 />
                 {errors.city && <p style={{color:"red"}}>{errors.city.message}</p>}
